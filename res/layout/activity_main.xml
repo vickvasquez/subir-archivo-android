@@ -10,42 +10,42 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="37dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="Buscar" />
+        android:layout_toRightOf="@+id/txtSeleccionarArchivo"
+        android:text="@string/buscar" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtSeleccionarArchivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
+        android:layout_alignBaseline="@+id/btnBuscar"
+        android:layout_alignBottom="@+id/btnBuscar"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="14dp"
         android:text="@string/seleccionar_archivo" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtNombreArchivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/btnBuscar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="[Archivo]"
+        android:text="@string/archivo"
         android:visibility="visible" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSubir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/txtNombreArchivo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Subir"
+        android:text="@string/subir"
         android:visibility="visible" />
 
 </RelativeLayout>

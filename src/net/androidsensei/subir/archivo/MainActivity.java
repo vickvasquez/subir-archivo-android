@@ -30,9 +30,7 @@ public class MainActivity extends Activity {
 
 	private Button open_explorer;
 	private Button upload;
-	private TextView archivo;
-	
-	
+	private TextView archivo;	
 	private String archivo_seleccionado;
 	
 	@Override
@@ -40,14 +38,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		open_explorer = (Button)findViewById(R.id.button1);
+		open_explorer = (Button)findViewById(R.id.btnBuscar);
 		open_explorer.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
 				Intent file_explorer = new Intent(MainActivity.this,FileExplorerActivity.class);
 				startActivityForResult(file_explorer, 555);				
 			}
 		});
-		upload = (Button)findViewById(R.id.button2);
+		upload = (Button)findViewById(R.id.btnSubir);
 		upload.setOnClickListener(new OnClickListener() {			
 			public void onClick(View v) {
 				
@@ -58,7 +56,7 @@ public class MainActivity extends Activity {
 					
 					try
 					{
-						new RetreiveFeedTask().execute(archivo_seleccionado);
+						new UploadFileTask().execute(archivo_seleccionado);
 					}
 					catch (Exception ex)
 					{
@@ -72,7 +70,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		archivo = (TextView)findViewById(R.id.textView3);		
+		archivo = (TextView)findViewById(R.id.txtNombreArchivo);		
 	}
 	
 	@Override
@@ -89,27 +87,29 @@ public class MainActivity extends Activity {
 }
 
 //http://stackoverflow.com/questions/2017414/post-multipart-request-with-android-sdk
-class RetreiveFeedTask extends AsyncTask<String,Void,String> {
+class UploadFileTask extends AsyncTask<String,Void,String> {
 
     protected String doInBackground(String... archivo) {
-        try {
+    	String result = null;
+    	try {
 
         	HttpClient httpclient = new DefaultHttpClient();
             httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-            HttpPost httppost = new HttpPost("http://192.168.1.7/upload.php");
+            HttpPost httppost = new HttpPost("http://192.168.1.10/upload.php");
             File file = new File(archivo[0]);
             
             MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);  
             multipartEntity.addPart("archivo", new FileBody(file));
 
             httppost.setEntity(multipartEntity);
-            httpclient.execute(httppost, new PhotoUploadResponseHandler());
+            result = httpclient.execute(httppost, new FileUploadResponseHandler());
         	
         } catch (Exception e) {
             e.printStackTrace();
         }
-		return null;
+		
+		return result;
     }
 
     protected void onPostExecute(String feed) {
@@ -117,7 +117,7 @@ class RetreiveFeedTask extends AsyncTask<String,Void,String> {
     }
  }
 
- class PhotoUploadResponseHandler implements ResponseHandler {
+ class FileUploadResponseHandler implements ResponseHandler {
 
     @Override
     public Object handleResponse(HttpResponse response)
@@ -127,7 +127,7 @@ class RetreiveFeedTask extends AsyncTask<String,Void,String> {
         String responseString = EntityUtils.toString(r_entity);
         Log.d("UPLOAD", responseString);
 
-        return null;
+        return responseString;
     }
 
 }

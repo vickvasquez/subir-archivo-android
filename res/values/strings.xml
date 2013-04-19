@@ -5,5 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="seleccionar_archivo">Selecciona tu archivo</string>
+    <string name="no_archivos">No hay archivos</string>
+    <string name="subir">Subir</string>
+    <string name="archivo">[Archivo]</string>
+    <string name="buscar">Buscar</string>
 
 </resources>
